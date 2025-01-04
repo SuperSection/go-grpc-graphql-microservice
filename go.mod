@@ -4,11 +4,21 @@ go 1.23.4
 
 require (
 	github.com/99designs/gqlgen v0.17.61
+	github.com/elastic/go-elasticsearch/v8 v8.17.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/lib/pq v1.10.9
 	github.com/segmentio/ksuid v1.0.4
 	github.com/vektah/gqlparser/v2 v2.5.20
 	google.golang.org/grpc v1.69.2
+)
+
+require (
+	github.com/elastic/elastic-transport-go/v8 v8.6.0 // indirect
+	github.com/go-logr/logr v1.4.2 // indirect
+	github.com/go-logr/stdr v1.2.2 // indirect
+	go.opentelemetry.io/otel v1.31.0 // indirect
+	go.opentelemetry.io/otel/metric v1.31.0 // indirect
+	go.opentelemetry.io/otel/trace v1.31.0 // indirect
 )
 
 require (

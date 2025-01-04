@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/SuperSection/go-grpc-graphql-microservice/catalog/pb";
+
+
+message Product {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+}
+
+
+message PostProductRequest {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+}
+
+message PostProductResponse {
+  Product product = 1;
+}
+
+
+message GetProductRequest {
+  string id = 1;
+}
+
+message GetProductResponse {
+  Product product = 1;
+}
+
+
+message GetProductsRequest {
+  repeated string ids = 1;
+  string query = 2;
+  uint64 skip = 3;
+  uint64 take = 4;
+}
+
+message GetProductsResponse {
+  repeated Product products = 1;
+}
+
+
+service CatalogService {
+  rpc PostProduct (PostProductRequest) returns (PostProductResponse);
+  rpc GetProduct (GetProductRequest) returns (GetProductResponse);
+  rpc GetProducts (GetProductsRequest) returns (GetProductsResponse);
+}
