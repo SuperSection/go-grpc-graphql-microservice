@@ -4,32 +4,34 @@ FROM golang:1.21-alpine3.18 AS build
 # Install necessary build tools and certificates
 RUN apk add --no-cache gcc g++ make ca-certificates
 
-# Set the working directory for the build stage
+# Set the working directory
 WORKDIR /go/src/github.com/supersection/go-graphql-microservice
 
 # Copy Go module files and download dependencies
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Copy only the required source code for the catalog service
-COPY catalog ./catalog
+# Copy the application source code
+COPY account account
+COPY catalog catalog
+COPY order order
 
-# Build the catalog service binary
-RUN go build -o /go/bin/app ./catalog/cmd/catalog
+# Build the application
+RUN go build -mod=readonly -o /go/bin/app ./order/cmd/order
 
-# Use a minimal runtime image
+# Use a smaller runtime image for the final stage
 FROM alpine:3.18
 
-# Install CA certificates for secure connections
+# Install CA certificates for HTTPS support
 RUN apk add --no-cache ca-certificates
 
-# Set the working directory for the runtime stage
+# Set the working directory for the runtime container
 WORKDIR /usr/bin
 
-# Copy the compiled binary from the build stage
+# Copy the compiled application from the build stage
 COPY --from=build /go/bin/app .
 
-# Expose the application port
+# Expose the application's port
 EXPOSE 8080
 
 # Set the default command to run the application
