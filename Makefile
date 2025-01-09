@@ -12,3 +12,9 @@ catalog-grpc:
 
 catalog-pb:
 	cd catalog && protoc --go_out=./pb --go_opt=paths=source_relative catalog.proto
+
+order-grpc:
+	cd order && protoc --go-grpc_out=./pb --go-grpc_opt=paths=source_relative order.proto
+
+order-pb:
+	cd order && protoc --go_out=./pb --go_opt=paths=source_relative order.proto
