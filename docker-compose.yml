@@ -3,7 +3,7 @@ services:
   account:
     build:
       context: .
-      dockerfile: ./account/app,dockerfile
+      dockerfile: ./account/app.dockerfile
     depends_on:
       - account_db
     environment:
@@ -13,7 +13,7 @@ services:
   catalog:
     build:
       context: .
-      dockerfile: ./catalog/app,dockerfile
+      dockerfile: ./catalog/app.dockerfile
     depends_on:
       - catalog_db
     environment:
@@ -23,7 +23,7 @@ services:
   order:
     build:
       context: .
-      dockerfile: ./order/app,dockerfile
+      dockerfile: ./order/app.dockerfile
     depends_on:
       - order_db
     environment:
@@ -35,7 +35,7 @@ services:
   graphql:
     build:
       context: .
-      dockerfile: ./graphql/app,dockerfile
+      dockerfile: ./graphql/app.dockerfile
     ports:
       - 8080:8080
     depends_on:
