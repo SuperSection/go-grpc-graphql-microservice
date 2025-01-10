@@ -1,11 +1,15 @@
 # Use the latest Go image with Alpine as the base for building
-FROM golang:1.21-alpine3.18 AS build
+FROM golang:latest AS build
 
-# Install necessary build tools and dependencies
-RUN apk add --no-cache gcc g++ make ca-certificates
+# Install necessary build tools and certificates
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory inside the container
-WORKDIR /go/src/github.com/supersection/go-graphql-microservice
+# Set the working directory for the build stage
+WORKDIR /go/src/github.com/supersection/go-grpc-graphql-microservice
 
 # Copy the Go module files and download dependencies
 COPY go.mod go.sum ./
@@ -20,9 +24,6 @@ RUN go build -mod=readonly -o /go/bin/app ./account/cmd/account
 
 # Use a minimal Alpine image for the runtime
 FROM alpine:3.18
-
-# Install CA certificates for secure connections
-RUN apk add --no-cache ca-certificates
 
 # Set the working directory for the runtime container
 WORKDIR /usr/bin
