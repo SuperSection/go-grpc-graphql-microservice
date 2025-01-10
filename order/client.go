@@ -15,7 +15,7 @@ type Client struct {
 	service pb.OrderServiceClient
 }
 
-func NewClinet(url string) (*Client, error) {
+func NewClient(url string) (*Client, error) {
 	conn, err := grpc.NewClient(url, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return nil, err

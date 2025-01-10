@@ -1,6 +1,11 @@
 package main
 
-import "github.com/99designs/gqlgen/graphql"
+import (
+	"github.com/99designs/gqlgen/graphql"
+	account "github.com/SuperSection/go-grpc-graphql-microservice/account"
+	catalog "github.com/SuperSection/go-grpc-graphql-microservice/catalog"
+	order "github.com/SuperSection/go-grpc-graphql-microservice/order"
+)
 
 type Server struct {
 	accountClient *account.Client
@@ -54,6 +59,6 @@ func (s *Server) Account() AccountResolver {
 
 func (s *Server) ToExecutableSchema() graphql.ExecutableSchema {
 	return NewExecutableSchema(Config{
-		Resolver: s,
+		Resolvers: s,
 	})
 }
